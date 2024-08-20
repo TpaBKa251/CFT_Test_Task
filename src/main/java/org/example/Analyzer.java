@@ -32,7 +32,7 @@ public class Analyzer {
 
     private String getPath() {
         Path currentPath = Paths.get("");
-        return Objects.requireNonNullElse(parameters.path(), currentPath.toAbsolutePath().toString()) + "\\"
+        return Objects.requireNonNullElse(parameters.path(), currentPath.toAbsolutePath().toString()) + File.separator
                 + Objects.requireNonNullElse(parameters.prefix(), "");
     }
 
