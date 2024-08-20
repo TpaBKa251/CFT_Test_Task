@@ -90,7 +90,7 @@ cd cft_test_task
 ```
 Или через Get from VCS
 
-![](images/Главная идейки.png)
+![](images/IDE.png)
 2. Выполните следующую команду для сборки проекта и создания JAR-файла:
 ```shell
 ./gradlew build
