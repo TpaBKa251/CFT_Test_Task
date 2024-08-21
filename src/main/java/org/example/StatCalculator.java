@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Класс для ведения и вывода статистки. Имеет методы:
@@ -11,6 +13,7 @@ import java.math.RoundingMode;
  * <p>{@link StatCalculator#updateFloatStat(double)} для обновления статистики вещественных чисел
  * <p>{@link StatCalculator#updateStringStat(String)} для обновления статистики трок
  * <p>{@link StatCalculator#printStat(Parameters)} для вывода статистики
+ * <p>{@link StatCalculator#calcMiddle()} для подсчета средних значений
  */
 public class StatCalculator {
     /**
@@ -31,6 +34,8 @@ public class StatCalculator {
     private long maxInt = Long.MIN_VALUE;
     private long minInt = Long.MAX_VALUE;
     private long sumInt = 0;
+    private long middleInt2 = 0;
+    private BigDecimal middleInt = BigDecimal.ZERO;
 
     /**
      * Поля полной статистики для вещественных чисел.
@@ -39,6 +44,7 @@ public class StatCalculator {
     private double maxFloat = -Double.MAX_VALUE;
     private double minFloat = Double.MAX_VALUE;
     private BigDecimal sumFloat = BigDecimal.ZERO;
+    private double middleFloat = 0.0;
 
     /**
      * Поля полной статистики для строк
@@ -80,7 +86,7 @@ public class StatCalculator {
     }
 
     /**
-     * Метод вывода краткой либо полной статистики (либо обоих сразу)
+     * Метод вывода краткой либо полной статистики (либо обоих сразу). Для подсчета средних значений использует метод {@link StatCalculator#calcMiddle()}
      * @param parameters параметры командной строки класса {@link Parameters}
      */
     public void printStat(Parameters parameters) {
@@ -95,14 +101,8 @@ public class StatCalculator {
 
         // Вывод полной статистики
         if (parameters.fullStat()) {
-            BigDecimal sumIntDecimal = BigDecimal.valueOf(sumInt);
-            BigDecimal cntIntBigDecimal = BigDecimal.valueOf(cntInt);
 
-            // Вычисление средних значений
-            // Для вещественных чисел используется класс BigDecimal для большей точности вычисления
-            double middleInt = (cntInt == 0) ? 0 : sumIntDecimal.divide(cntIntBigDecimal, 16, RoundingMode.HALF_UP).doubleValue();
-            long middleInt2 = (cntInt == 0) ? 0 : sumInt / cntInt;
-            double middleFloat = (cntFloat == 0) ? 0.0 : sumFloat.divide(BigDecimal.valueOf(cntFloat), 16, RoundingMode.HALF_UP).doubleValue();
+            int lastIndex = calcMiddle();
 
             System.out.println(
                     "\nПолная статистика:\n" +
@@ -111,7 +111,7 @@ public class StatCalculator {
                             "       Макс: " + maxInt + "\n" +
                             "       Мин: " + minInt + "\n" +
                             "       Сум: " + sumInt + "\n" +
-                            "       Сред: " + middleInt + " (целое = " + middleInt2 + ")\n" +
+                            "       Сред: " + String.valueOf(middleInt).substring(0, lastIndex + 1) + " (целое = " + middleInt2 + ")\n" +
                             "    floats:\n" +
                             "       Кол-во: " + cntFloat + "\n" +
                             "       Макс: " + maxFloat + "\n" +
@@ -123,5 +123,31 @@ public class StatCalculator {
                             "       Макс: " + maxStr + "\n" +
                             "       Мин: " + minStr);
         }
+    }
+
+    /**
+     * Вычисляет средние значения для чисел
+     * @return индекс последней значащей цифры для вещественного представления среднего значения целых чисел
+     */
+    private int calcMiddle(){
+        BigDecimal sumIntDecimal = BigDecimal.valueOf(sumInt);
+        BigDecimal cntIntBigDecimal = BigDecimal.valueOf(cntInt);
+
+        // Вычисление средних значений
+        // Для вещественных чисел используется класс BigDecimal для большей точности вычисления
+        middleInt = (cntInt == 0) ? BigDecimal.ZERO : sumIntDecimal.divide(cntIntBigDecimal, 16, RoundingMode.HALF_UP);
+        middleInt2 = (cntInt == 0) ? 0 : sumInt / cntInt;
+        middleFloat = (cntFloat == 0) ? 0 : sumFloat.doubleValue() / cntFloat;
+
+        // Нахождение последней значащей цифры для middleInt
+        Pattern pattern = Pattern.compile("[1-9]");
+        Matcher matcher = pattern.matcher(String.valueOf(middleInt));
+
+        int lastIndex = -1;
+        while (matcher.find()) {
+            lastIndex = matcher.start();
+        }
+
+        return lastIndex;
     }
 }

@@ -74,7 +74,7 @@ public class Analyzer {
     }
 
     /**
-     * Метод для вывода выходных файлов. Если количество добавленных в соответствующий файл элементов не равно нулю,
+     * Метод для вывода выходных файлов. Если количество добавленных в соответствующий файл элементов не равно нулю и этот файл существует,
      * тогда этот файл добавляется в строку
      * @param fileInt файл целых чисел
      * @param fileFloat файл вещественных чисел
@@ -84,13 +84,13 @@ public class Analyzer {
     private String getOutputFiles(File fileInt, File fileFloat, File fileStr) {
         String outputFiles = "";
 
-        if (statCalculator.getCntInt() != 0){
+        if (statCalculator.getCntInt() != 0 && fileInt.exists()){
             outputFiles += "        " + fileInt + "\n";
         }
-        if (statCalculator.getCntFloat() != 0){
+        if (statCalculator.getCntFloat() != 0 && fileFloat.exists()){
             outputFiles += "        " + fileFloat + "\n";
         }
-        if (statCalculator.getCntStr() != 0){
+        if (statCalculator.getCntStr() != 0 && fileStr.exists()){
             outputFiles += "        " + fileStr;
         }
 
