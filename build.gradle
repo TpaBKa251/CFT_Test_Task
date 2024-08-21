@@ -9,6 +9,10 @@ plugins {
     id 'java'
 }
 
+java {
+    sourceCompatibility = '17'
+}
+
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 

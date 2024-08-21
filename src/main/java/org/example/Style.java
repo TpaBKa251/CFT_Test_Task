@@ -11,6 +11,7 @@ import org.fusesource.jansi.Ansi;
  * <p>{@link Style#setHelp(String, boolean, boolean)} - для добавления текста помощи
  * <p>{@link Style#setExample(String, boolean, boolean)} - для добавления примера
  * <p>{@link Style#setOut(String, boolean)} - для добавления сообщения об успехе
+ * <p>{@link Style#applyStyle(Ansi, boolean, boolean)} - для применения начертаний
  */
 public class Style {
 
@@ -45,7 +46,9 @@ public class Style {
      * @param help текст помощи или подсказки класса {@link String}
      * @param bold флаг для установления жирного стиля
      * @param italic флаг для установления курсива
-     * @return
+     * @return строку помощи желтого цвета.
+     * Если установлен флаг {@code bold} в значение {@code true}, то строка дополнительно становится жирной.
+     * Если установлен флаг {@code italic} в значение {@code true}, то строка дополнительно становится курсивной
      */
     public static String setHelp(String help, boolean bold, boolean italic){
         return applyStyle(Ansi.ansi().fg(Ansi.Color.YELLOW), bold, italic)
@@ -59,7 +62,9 @@ public class Style {
      * @param example текст примера класса {@link String}
      * @param bold флаг для установления жирного стиля
      * @param italic флаг для установления курсива
-     * @return
+     * @return строку примера синего цвета.
+     * Если установлен флаг {@code bold} в значение {@code true}, то строка дополнительно становится жирной.
+     * Если установлен флаг {@code italic} в значение {@code true}, то строка дополнительно становится курсивной
      */
     public static String setExample(String example, boolean bold, boolean italic){
         return applyStyle(Ansi.ansi().fg(Ansi.Color.BLUE), bold, italic)
@@ -72,7 +77,8 @@ public class Style {
      *
      * @param out текст сообщения об успехе класса {@link String}
      * @param bold флаг для установления жирного стиля
-     * @return
+     * @return строку сообщения об успехе зеленого цвета.
+     * Если установлен флаг {@code bold} в значение {@code true}, то строка дополнительно становится жирной
      */
     public static String setOut(String out, boolean bold){
         return applyStyle(Ansi.ansi().fg(Ansi.Color.GREEN), bold, false)

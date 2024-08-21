@@ -50,6 +50,10 @@ public record Parameters(
          * а пользователю пишут причину и подсказку с примером, какие опции поддерживает программа и как ее правильно запускать
          * @param args аргументы командной строки
          * @return экземпляр класса {@link Parameters}
+         * @see Style#setErrBold()
+         * @see Style#setErr(String)
+         * @see Style#setHelp(String, boolean, boolean)
+         * @see Style#setExample(String, boolean, boolean)
          */
         public static Parameters parse(String[] args) {
             // Создание объекта Options и добавление всех возможных опций

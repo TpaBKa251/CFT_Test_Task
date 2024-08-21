@@ -1,5 +1,5 @@
 # **Утилита фильтрации содержимого файлов**
-- **Java** 17
+- **Java** 17.0.12
 - **Gradle** 8.8
 ## **Сторонние библиотеки**
 - **Apache Commands Cli** 1.8.0 [ссылка](https://commons.apache.org/proper/commons-cli/)
