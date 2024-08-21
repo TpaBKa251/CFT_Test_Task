@@ -87,7 +87,7 @@ dependencies {
 ## Сборка проекта
 1. Клонируйте репозиторий и перейдите в корневую директорию проекта:
 ```shell
-git clone https://github.com/trabka251/cft_test_task.git
+git clone https://github.com/TpaBKa251/CFT_Test_Task.git
 cd cft_test_task
 ```
 Или через Get from VCS
