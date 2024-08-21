@@ -2,6 +2,9 @@ package org.example;
 
 import org.fusesource.jansi.AnsiConsole;
 
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Вся программа поделена на классы:
  * <p>
@@ -24,6 +27,9 @@ import org.fusesource.jansi.AnsiConsole;
  */
 public class Main {
     public static void main(String[] args) {
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(System.err, true, StandardCharsets.UTF_8));
+
         // Инициализация Jansi
         AnsiConsole.systemInstall();
 
