@@ -54,7 +54,7 @@ public class Analyzer {
         fileHandler.readAndWrite(parameters.inputFiles(), intFile, floatFile, strFile);
         // Вывод созданных выходных файлов
         System.out.println(Style.setOut("\nРезультат:\n", true)
-                + "    Выходные файлы: " + getOutputFiles(intFile, floatFile, strFile));
+                + "    Выходные файлы (созданные или измененные):\n" + getOutputFiles(intFile, floatFile, strFile));
         // Вывод статистики
         statCalculator.printStat(parameters);
         System.out.println(Style.setOut("\nПрограмма успешно завершила работу", true));
@@ -74,7 +74,8 @@ public class Analyzer {
     }
 
     /**
-     * Метод для вывода выходных файлов. Если файл существует, то добавляет его в строку
+     * Метод для вывода выходных файлов. Если количество добавленных в соответствующий файл элементов не равно нулю,
+     * тогда этот файл добавляется в строку
      * @param fileInt файл целых чисел
      * @param fileFloat файл вещественных чисел
      * @param fileStr файл строк
@@ -83,14 +84,14 @@ public class Analyzer {
     private String getOutputFiles(File fileInt, File fileFloat, File fileStr) {
         String outputFiles = "";
 
-        if (fileInt.exists()){
-            outputFiles += fileInt + ", ";
+        if (statCalculator.getCntInt() != 0){
+            outputFiles += "        " + fileInt + "\n";
         }
-        if (fileFloat.exists()){
-            outputFiles += fileFloat + ", ";
+        if (statCalculator.getCntFloat() != 0){
+            outputFiles += "        " + fileFloat + "\n";
         }
-        if (fileStr.exists()){
-            outputFiles += fileStr.toString();
+        if (statCalculator.getCntStr() != 0){
+            outputFiles += "        " + fileStr;
         }
 
         return outputFiles;

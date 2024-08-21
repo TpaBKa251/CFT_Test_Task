@@ -1,5 +1,7 @@
 package org.example;
 
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -13,9 +15,14 @@ import java.math.RoundingMode;
 public class StatCalculator {
     /**
      * Поля количества элементов каждого типа
+     * <p>Использована аннотация {@link Getter} библиотеки <a href="https://projectlombok.org/">Lombok</a>
+     * для создания методов get() для этих 3-х полей.
      */
+    @Getter
     private long cntInt = 0;
+    @Getter
     private long cntStr = 0;
+    @Getter
     private long cntFloat = 0;
 
     /**
